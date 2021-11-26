@@ -36,7 +36,7 @@ import {
   Container,
   Row,
   Col,
-  UncontrolledTooltip,
+  UncontrolledTooltip
 } from "reactstrap";
 
 // core components
@@ -44,11 +44,11 @@ import ExamplesNavbar from "components/Navbars/ExamplesNavbar.js";
 import Footer from "components/Footer/Footer.js";
 import PackageTestimonial from "components/PackageTestimonial/PackageTestimonia.js";
 import PropsPoints from "components/PropsPoints/PropsPoints.js";
-// @TODO consider another use-case of PropsPoints that uses built-in
+// @TODO consider another use-case of PropsPoints that uses built-in 
 // react's refs method instead of the pure DOM APIs.
 // import PropsPointsAdvanced from "components/PropsPoints/PropsPointsAdvanced";
 import PackageParser from "components/PackageParser/PackageParser.js";
-import { database } from "../../database.js";
+import { database } from '../../database.js'
 
 let ps = null;
 
@@ -74,15 +74,39 @@ export default function PackageProfile() {
       }
       document.body.classList.toggle("profile-page");
     };
-  }, []);
+  },[]);
 
-  // const [twitterLink, setTwitterLink] = useState(database.twitterLink);
-  // useEffect(() => {
-  //   // if (twitterLink.toLowerCase().indexOf("javascript:", 0) === 0) {
-  //   //   setTwitterLink("#");
-  //   // }
-  //   twitterLink.indexOf('https://', 0)
-  // });
+  /*
+  // @TODO
+  // This is an attempted fix to solve the href issue
+  // of JavaScript URLs. Is it good enough?
+  //
+  // 1. declare useState with twitter link
+  //    const [twitterLink, setTwitterLink] = useState(database.twitterLink)
+  // 2. use that state in the component
+  //    href={database.twitterLink}
+  // 3. uncomment the below for useffect:
+  useEffect(() => {
+
+    // reason about that we want to match cases that only start from 1st
+    // character position (denoted by 0), because a valid url can be
+    // https://twitter.com/javascript:person
+    // so we use indexOf() instead of regex, because regex are bad:
+    // first try: does it work?
+    if (twitterLink.indexOf('javascript:', 0) === 0) {
+      setTwitterLink('#')
+    }
+    
+    // second try: does it work?
+    // if (twitterLink.toLowerCase().indexOf('javascript:', 0) === 0) {
+    //   setTwitterLink('#')
+    // }
+
+    // third try: show that it doesn't catch the case of special characters
+    // hitting the database entry and make the case for using allowlist
+    // and an expected scheme of https:// as the opening characters.
+  })
+  */
 
   return (
     <>
@@ -102,11 +126,11 @@ export default function PackageProfile() {
           <Container className="align-items-center">
             <Row>
               <Col lg="6" md="6">
-                <h1 className="profile-title text-left" id="authorName">
-                  {database.authorName}
-                </h1>
+                <h1 className="profile-title text-left" id="authorName">{database.authorName}</h1>
                 <h5 className="text-on-back">dev</h5>
-                <p className="profile-description">{database.aboutAuthor}</p>
+                <p className="profile-description">
+                  {database.aboutAuthor}
+                </p>
                 <div className="btn-wrapper profile pt-3">
                   <Button
                     className="btn-icon btn-round"
@@ -131,7 +155,7 @@ export default function PackageProfile() {
                     />
                     <h4 className="title">Package Author</h4>
                     <CardBody>
-                      <PropsPoints {...database} />
+                        <PropsPoints {...database} />
                     </CardBody>
                   </CardHeader>
                   <CardBody>
@@ -187,10 +211,7 @@ export default function PackageProfile() {
                       activeTab={"tab" + tabs}
                     >
                       <TabPane tabId="tab1">
-                        <PackageTestimonial
-                          author={database.authorName}
-                          {...database.testimonial}
-                        />
+                          <PackageTestimonial author={database.authorName} {...database.testimonial} />
                       </TabPane>
                       <TabPane tabId="tab2">
                         <Row>
@@ -232,12 +253,7 @@ export default function PackageProfile() {
                           </thead>
                           <tbody>
                             <tr>
-                              <td>
-                                Package gains popularity, as cited on{" "}
-                                <a href="https://snyk.io/advisor/">
-                                  Snyk Advisor
-                                </a>
-                              </td>
+                              <td>Package gains popularity, as cited on <a href="https://snyk.io/advisor/">Snyk Advisor</a></td>
                             </tr>
                             <tr>
                               <td>Feature: support ESM and Node.js 16</td>
@@ -259,39 +275,37 @@ export default function PackageProfile() {
         <div className="section">
           <Container>
             <Row className="justify-content-between">
-              <Col md="6">
-                <h1 className="profile-title text-left">
-                  The package manfiest
-                </h1>
-                <h5 className="text-on-back">package.json</h5>
-              </Col>
+                <Col md="6">
+                    <h1 className="profile-title text-left">The package manfiest</h1>
+                    <h5 className="text-on-back">package.json</h5>
+                </Col>
             </Row>
             <PackageParser packageManifest={database.packageManifest} />
           </Container>
         </div>
 
         <div className="section">
-          <Container>
-            <Row className="justify-content-between">
-              <Col md="6">
-                <Row className="justify-content-between align-items-center">
-                  <div
-                    dangerouslySetInnerHTML={{
-                      __html: `
+            <Container>
+                <Row className="justify-content-between">
+                    <Col md="6">
+                        <Row className="justify-content-between align-items-center">
+                            <div dangerouslySetInnerHTML={
+                                {__html: `
                                 <img src=${database.authorScreenshotURL}
-                                alt=${database.authorScreenshotDescription} />
-                                `,
-                    }}
-                  />
+                                alt=${(database.authorScreenshotDescription)} />
+                                `
+                                }
+                            } />
+                        </Row>
+                    </Col>
+                    <Col md="5">
+                        <h1 className="profile-title text-left">Project screenshot</h1>
+                        <h5 className="text-on-back">...</h5>
+                        <p className="profile-description text-left">
+                        </p>
+                    </Col>
                 </Row>
-              </Col>
-              <Col md="5">
-                <h1 className="profile-title text-left">Project screenshot</h1>
-                <h5 className="text-on-back">...</h5>
-                <p className="profile-description text-left"></p>
-              </Col>
-            </Row>
-          </Container>
+            </Container>
         </div>
 
         <section className="section">
@@ -315,10 +329,7 @@ export default function PackageProfile() {
                         <Col md="6">
                           <FormGroup>
                             <label>Email address</label>
-                            <Input
-                              placeholder="katelibby@ellingson.com"
-                              type="email"
-                            />
+                            <Input placeholder="katelibby@ellingson.com" type="email" />
                           </FormGroup>
                         </Col>
                       </Row>
@@ -332,10 +343,7 @@ export default function PackageProfile() {
                         <Col md="6">
                           <FormGroup>
                             <label>Company</label>
-                            <Input
-                              defaultValue="Ellingson Mineral Company"
-                              type="text"
-                            />
+                            <Input defaultValue="Ellingson Mineral Company" type="text" />
                           </FormGroup>
                         </Col>
                       </Row>
