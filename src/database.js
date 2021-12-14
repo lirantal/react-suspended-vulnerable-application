@@ -1,6 +1,6 @@
 export const database = {
-  // authorName: "Karl<img src= onError=alert(1) /> Horky",
-  authorName: "Karl Horky",
+  // authorName: "Kate<img src= onError=alert(1) /> Libby",
+  authorName: "Kate Libby",
   aboutAuthor:
     "Penetration Tester at Ellingson Mineral Company. Experience developing and delivering custom gibson hacking payloads via the well known metasploit framework.",
   twitterLink: "https://dfkgldkfgldk:alert(1)",
