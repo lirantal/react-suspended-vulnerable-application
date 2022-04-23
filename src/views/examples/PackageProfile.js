@@ -76,14 +76,6 @@ export default function PackageProfile() {
     };
   }, []);
 
-  // const [twitterLink, setTwitterLink] = useState(database.twitterLink);
-  // useEffect(() => {
-  //   // if (twitterLink.toLowerCase().indexOf("javascript:", 0) === 0) {
-  //   //   setTwitterLink("#");
-  //   // }
-  //   twitterLink.indexOf('https://', 0)
-  // });
-
   return (
     <>
       <ExamplesNavbar />
