@@ -2,6 +2,25 @@
 
 A React application riddled with security vulnerabilities so you can learn how not to write insecure code.
 
+## How to run me?
+
+### Local installation
+
+For a local installation, make sure you have the following dependencies installed:
+1. Node.js v14 (other versions don't work)
+2. npm
+
+### Docker installation
+
+Easiest method is to run the React app through a containerized image.
+The `docker-compose.yml` file also mounts the `./src` directory to the container so you can easily edit source files on the host, and enjoy the fast development experience of hot reloading.
+
+To run the containerized version, run the following command:
+
+```sh
+docker-compose up
+```
+
 ---
 
 Modern frontend frameworks like React are well thought of in their application security design and that’s great. However, there is still plenty of room for developers to make mistakes and use insecure APIs, vulnerable components, or generally do the wrong thing that turns user input into a Cross-site Scripting vulnerability (XSS). Let me show you how React applications get hacked in the real world with React Suspended educational experience.
