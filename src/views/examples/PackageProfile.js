@@ -76,37 +76,41 @@ export default function PackageProfile() {
     };
   },[]);
 
-  /*
-  // @TODO
-  // This is an attempted fix to solve the href issue
-  // of JavaScript URLs. Is it good enough?
-  //
-  // 1. declare useState with twitter link
-  //    const [twitterLink, setTwitterLink] = useState(database.twitterLink)
-  // 2. use that state in the component
-  //    href={database.twitterLink}
-  // 3. uncomment the below for useffect:
+  const [twitterLink, setTwitterLink] = useState(database.twitterLink);
+
+  const axios = require('axios');
+
   useEffect(() => {
+    // Use Axios to make an HTTP API call and then update React's state
+    // axios.get('https://api.github.com/users/creativetim')
+    axios.get('http://localhost:3004/profile')
+      .then(response => {
+        // setTwitterLink(response.data.html_url);
+        setTwitterLink(response.data.url);
+          //   if (twitterLink.toLowerCase().indexOf('javascript:', 0) === 0) {
+          //     setTwitterLink('#');
+          //   }
+      }
+    )
+  });
 
-    // reason about that we want to match cases that only start from 1st
-    // character position (denoted by 0), because a valid url can be
-    // https://twitter.com/javascript:person
-    // so we use indexOf() instead of regex, because regex are bad:
-    // first try: does it work?
-    if (twitterLink.indexOf('javascript:', 0) === 0) {
-      setTwitterLink('#')
+  const xssmap = {
+    '"': '&quot;',
+    '\'': '&apos;',
+    '&': '&amp;',
+    '>': '&gt;',
+    '<': '&lt',
+  };
+  
+  function xss(s) {
+    if (!s) {
+      return s;
     }
-    
-    // second try: does it work?
-    // if (twitterLink.toLowerCase().indexOf('javascript:', 0) === 0) {
-    //   setTwitterLink('#')
-    // }
-
-    // third try: show that it doesn't catch the case of special characters
-    // hitting the database entry and make the case for using allowlist
-    // and an expected scheme of https:// as the opening characters.
-  })
-  */
+  
+    return s.replace(/<|>|&|"|'/g, (m) => {
+      return xssmap[m];
+    });
+  }
 
   return (
     <>
@@ -121,7 +125,7 @@ export default function PackageProfile() {
           <img
             alt="..."
             className="path"
-            src={require("assets/img/path4.png").default}
+            src={require("assets/img/path4.png").default} 
           />
           <Container className="align-items-center">
             <Row>
@@ -131,11 +135,12 @@ export default function PackageProfile() {
                 <p className="profile-description">
                   {database.aboutAuthor}
                 </p>
+                
                 <div className="btn-wrapper profile pt-3">
                   <Button
                     className="btn-icon btn-round"
                     color="twitter"
-                    href={database.twitterLink}
+                    href={twitterLink}
                     id="tooltip639225725"
                   >
                     <i className="fab fa-twitter" />
@@ -292,7 +297,7 @@ export default function PackageProfile() {
                             <div dangerouslySetInnerHTML={
                                 {__html: `
                                 <img src=${database.authorScreenshotURL}
-                                alt=${(database.authorScreenshotDescription)} />
+                                alt=${xss(database.authorScreenshotDescription)} />
                                 `
                                 }
                             } />

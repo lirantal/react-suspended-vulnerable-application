@@ -21,6 +21,14 @@ To run the containerized version, run the following command:
 docker-compose up
 ```
 
+### Reflecting changes to the development environment
+
+If you've made significant changes that require re-building the container image, such as by adding a new dependency, you can run the following command:
+
+```sh
+docker-compose up --build
+```
+
 ---
 
 Modern frontend frameworks like React are well thought of in their application security design and that’s great. However, there is still plenty of room for developers to make mistakes and use insecure APIs, vulnerable components, or generally do the wrong thing that turns user input into a Cross-site Scripting vulnerability (XSS). Let me show you how React applications get hacked in the real world with React Suspended educational experience.
