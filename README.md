@@ -18,8 +18,10 @@ The `docker-compose.yml` file also mounts the `./src` directory to the container
 To run the containerized version, run the following command:
 
 ```sh
-docker-compose up
+docker-compose up --build
 ```
+
+Note: passing the `--build` will allow it to re-build the container image if anything changed that would require a new Docker image too.
 
 ### Reflecting changes to the development environment
 
