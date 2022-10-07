@@ -31,6 +31,19 @@ If you've made significant changes that require re-building the container image,
 docker-compose up --build
 ```
 
+## How to use me?
+
+### Attribute Cross-site Scripting (XSS)
+
+1. Change the `src/database.json` to one of:
+   1. `javascript:alert(1)`
+   2. `JAVAscript:alert(1)`
+   3. `\x19JAVAscript:alert(1)`
+
+2. Use the `PackageParser` component but supply it a string instead of a JSON object:
+   1. It uses `react-json-pretty` vulnerable package version
+   2. Set `src/database.json` to `<img src=x on Error=alert(1) />`
+
 ---
 
 Modern frontend frameworks like React are well thought of in their application security design and that’s great. However, there is still plenty of room for developers to make mistakes and use insecure APIs, vulnerable components, or generally do the wrong thing that turns user input into a Cross-site Scripting vulnerability (XSS). Let me show you how React applications get hacked in the real world with React Suspended educational experience.
