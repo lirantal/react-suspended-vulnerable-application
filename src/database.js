@@ -1,7 +1,7 @@
 export const database = {
     authorName: "Kate Libby",
     aboutAuthor: "Penetration Tester at Ellingson Mineral Company. Experience developing and delivering custom gibson hacking payloads via the well known metasploit framework.",
-    twitterLink: "katelibyy",
+    twitterLink: "https://twitter.com/katelibyy",
     testimonial: {
         cite: "zero cool",
         text: "mess with the best, die like the rest"

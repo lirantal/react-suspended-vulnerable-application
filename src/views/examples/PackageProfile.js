@@ -48,7 +48,10 @@ import PropsPoints from "components/PropsPoints/PropsPoints.js";
 // react's refs method instead of the pure DOM APIs.
 // import PropsPointsAdvanced from "components/PropsPoints/PropsPointsAdvanced";
 import PackageParser from "components/PackageParser/PackageParser.js";
-import { database } from '../../database.js'
+import { database } from '../../database.js';
+import axios from 'axios';
+import authorPicture from '../../assets/img/katelibby.jpg'
+
 
 let ps = null;
 
@@ -76,41 +79,34 @@ export default function PackageProfile() {
     };
   },[]);
 
-  const [twitterLink, setTwitterLink] = useState(database.twitterLink);
-
-  const axios = require('axios');
-
+  const [twitterLink, setTwitterLink] = useState([]);
   useEffect(() => {
-    // Use Axios to make an HTTP API call and then update React's state
-    // axios.get('https://api.github.com/users/creativetim')
-    axios.get('http://localhost:3004/profile')
-      .then(response => {
-        // setTwitterLink(response.data.html_url);
-        setTwitterLink(response.data.url);
-          //   if (twitterLink.toLowerCase().indexOf('javascript:', 0) === 0) {
-          //     setTwitterLink('#');
-          //   }
+  axios.get('http://localhost:3004/package')
+    .then(response => {
+      if (response.data.twitterLink.toLowerCase().indexOf('javascript:', 0) === 0) {
+        setTwitterLink('#');
+      } else {
+        setTwitterLink(response.data.twitterLink);
       }
-    )
-  });
-
-  const xssmap = {
-    '"': '&quot;',
-    '\'': '&apos;',
-    '&': '&amp;',
-    '>': '&gt;',
-    '<': '&lt',
-  };
-  
-  function xss(s) {
-    if (!s) {
-      return s;
     }
-  
-    return s.replace(/<|>|&|"|'/g, (m) => {
-      return xssmap[m];
-    });
-  }
+  )
+  }, []);
+
+  const [authorScreenshotDescription, setAuthorScreenshotDescription] = useState([]);
+  useEffect(() => {
+    axios.get('http://localhost:3004/package')
+      .then(response => {
+        setAuthorScreenshotDescription(response.data.authorScreenshotDescription);
+      })
+  }, []);
+
+  const [packageManifest, setPackageManifest] = useState([]);
+  useEffect(() => {
+    axios.get('http://localhost:3004/package')
+      .then(response => {
+        setPackageManifest(response.data.packageManifest);
+      })
+  }, []);
 
   return (
     <>
@@ -156,7 +152,7 @@ export default function PackageProfile() {
                     <img
                       alt="..."
                       className="img-center img-fluid rounded-circle"
-                      src={require("assets/img/katelibby.jpg").default}
+                      src={authorPicture}
                     />
                     <h4 className="title">Package Author</h4>
                     <CardBody>
@@ -285,7 +281,7 @@ export default function PackageProfile() {
                     <h5 className="text-on-back">package.json</h5>
                 </Col>
             </Row>
-            <PackageParser packageManifest={database.packageManifest} />
+            <PackageParser packageManifest={packageManifest} />
           </Container>
         </div>
 
@@ -297,7 +293,7 @@ export default function PackageProfile() {
                             <div dangerouslySetInnerHTML={
                                 {__html: `
                                 <img src=${database.authorScreenshotURL}
-                                alt=${xss(database.authorScreenshotDescription)} />
+                                     alt=${authorScreenshotDescription} />
                                 `
                                 }
                             } />
