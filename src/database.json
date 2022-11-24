@@ -1,19 +1,33 @@
 {
   "package":
   {
+      "comment1": "what happens if we change this to <img src=x onError=alert(1)/> ?",
       "authorName": "Kate Libby",
+
+
       "aboutAuthor": "Penetration Tester at Ellingson Mineral Company. Experience developing and delivering custom gibson hacking payloads via the well known metasploit framework.",
-      "twitterLink": "https://twitter.com/katelibyy",
+
+      "comment2": "what happens if we change this link to the following inputs:",
+      "comment3": "javascript:alert(1)",
+      "comment4": "JAVAscript:alert(1)",
+      "comment5": "\tJAVAscript:alert(1)",
+      "twitterLink": "https://twitter.com/katelibby",
+
       "testimonial": {
       "cite": "zero cool",
       "text": "mess with the best, die like the rest"
       },
+
+
+      "comment6": "what happens if we change this to <img src=x onError=alert(1)/> ?",
       "packageManifest": {
-        "name": "gibson-explorer",
+        "comment7": "what happens if we change this to <img src=x onError=alert(1)/> ?",
+        "name": "gibson",
         "version": "0.0.0-development",
         "description": "cruise the gibson to find the garbage file",
         "bin": {
-            "gibson": "./bin/gibson.js"
+            "comment8": "what happens if we change this to <img src=x onError=alert(1)/> ?",
+            "gibson": "./bin/hacker.js"
         },
         "scripts": {
             "lint": "standard && eslint . --ignore-path .gitignore && yarn run lint:lockfile",
@@ -31,7 +45,12 @@
             "url": "git+https://github.com/katelibby/gibson-explorer.git"
         }
       },
+
       "authorScreenshotURL": "https://miro.medium.com/max/1838/0*bljFeVNLqEFudixU.png",
+
+      "comment9": "what happens if we change this to <img src=x onError=alert(1)/> ?",
+      "comment10": "maybe change to: /> img src=x onError=alert(1)",
+      "comment11": "you applied an xss filter? try changing it to: a onLoad=alert('hacked') ",
       "authorScreenshotDescription": "loremipsum"
   }
 }

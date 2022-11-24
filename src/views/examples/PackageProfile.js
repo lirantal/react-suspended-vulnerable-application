@@ -79,20 +79,44 @@ export default function PackageProfile() {
     };
   },[]);
 
-  const [twitterLink, setTwitterLink] = useState([]);
-  useEffect(() => {
-  axios.get('http://localhost:3004/package')
-    .then(response => {
-      if (response.data.twitterLink.toLowerCase().indexOf('javascript:', 0) === 0) {
-        setTwitterLink('#');
-      } else {
-        setTwitterLink(response.data.twitterLink);
-      }
-    }
-  )
-  }, []);
+  // @TODO: get twitterLink from API
+  // const [twitterLink, setTwitterLink] = useState([]);
+  // useEffect(() => {
+  //   axios.get('http://localhost:3004/package')
+  //     .then(res => {
+  //       const twitterLinkTemp = res.data.twitterLink;
+  //       if (twitterLinkTemp.toLowerCase().indexOf('javascript:', 0) === 0) {
+  //         setTwitterLink('#');
+  //       } else {
+  //         setTwitterLink(twitterLinkTemp);
+  //       }
+  //     })
+  // }, [])
+  
 
-  const [authorScreenshotDescription, setAuthorScreenshotDescription] = useState([]);
+  // @TODO how about we apply an XSS escaping filter
+  // and use it in our dangerouslySetInnerHTML usage
+  // through-out this app?
+  // const xssmap = {
+  //   '"': '&quot;',
+  //   '\'': '&apos;',
+  //   '&': '&amp;',
+  //   '>': '&gt;',
+  //   '<': '&lt',
+  // };
+  
+  // function xss(s) {
+  //   if (!s) {
+  //     return s;
+  //   }
+  
+  //   return s.replace(/<|>|&|"|'/g, (m) => {
+  //     return xssmap[m];
+  //   });
+  // }
+  
+
+  let [authorScreenshotDescription, setAuthorScreenshotDescription] = useState('');
   useEffect(() => {
     axios.get('http://localhost:3004/package')
       .then(response => {
@@ -105,6 +129,14 @@ export default function PackageProfile() {
     axios.get('http://localhost:3004/package')
       .then(response => {
         setPackageManifest(response.data.packageManifest);
+      })
+  }, []);
+
+  const [authorName, setAuthorName] = useState('');
+  useEffect(() => {
+    axios.get('http://localhost:3004/package')
+      .then(response => {
+        setAuthorName(response.data.authorName);
       })
   }, []);
 
@@ -126,7 +158,9 @@ export default function PackageProfile() {
           <Container className="align-items-center">
             <Row>
               <Col lg="6" md="6">
-                <h1 className="profile-title text-left" id="authorName">{database.authorName}</h1>
+                <h1 className="profile-title text-left" id="authorName">
+                  {authorName}
+                </h1>
                 <h5 className="text-on-back">dev</h5>
                 <p className="profile-description">
                   {database.aboutAuthor}
