@@ -59,7 +59,7 @@
     "web-vitals": "1.0.1"
   },
   "scripts": {
-    "start": "npx json-server --verbose --host 0.0.0.0 --port 3004 --watch src/database.json & react-scripts start",
+    "start": "npx json-server@0.17.0 --verbose --host 0.0.0.0 --port 3004 --watch src/database.json & react-scripts start",
     "build": "react-scripts build && gulp licenses",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
