@@ -58,6 +58,10 @@ Modern frontend frameworks like React are well thought of in their application s
 
 This codebase makes use of derivative work created by [Creative Tim](https://www.creative-tim.com), in particular their open source website design # [Blk• Design  System React](https://demos.creative-tim.com/blk-design-system-react). I used their work because it provided me with a realistic and functional React application, completely designed too, which allowed me to speed up my work on the security aspects.
 
+## Contributing
+
+Please consult [CONTRIBUTING](./CONTRIBUTING.md) for guidelines on contributing to this project.
+
 # Author
 
 Liran Tal <liran.tal@gmail.com>
